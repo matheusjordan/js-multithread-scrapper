@@ -1,10 +1,7 @@
-'use strict';
-import {HTMLReader} from "./services/html-reader.js";
+import {run} from "./utils/thread-manager.js";
 
 const main = async () => {
-    const page = await HTMLReader.readFromFile('./tests/campina-grande-example.html');
-    const links = HTMLReader.linksExtractor(page);
-    console.log(links)
+    run('https://pt.wikipedia.org/wiki/Campina_Grande');
 }
 
 main();;
