@@ -7,4 +7,4 @@ const main = async () => {
     console.log(links)
 }
 
-main();
+main();;
