@@ -25,10 +25,16 @@ export class WorkerPool {
       const worker = new Worker(this.workerScript);
       
       worker.once('message', links => {
+
+        /* Q7: Limitar a quantidade de níveis que o seu crawler */
         if (level < MAX_LEVEL) {
           for (let link of links) {
+
+            /* Q6: Usar uma estrutura de dados (set) para evitar visitar uma mesma URL mais de uma vez */
             if (!db.hasVisitedUrl(link)) {
               db.addVisitedUrl(link);
+
+              /* Q5: criar uma nova thread para link encontrado */
               this.run(link, level + 1);
             }
           }
