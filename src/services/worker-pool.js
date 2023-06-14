@@ -45,6 +45,8 @@ export class WorkerPool {
 
       console.log(`Created thread ID ${worker.threadId} at level ${level} for: ${url}`);
       worker.postMessage({url: url});
+    } else {
+      db.saveVisitedUrlsToFile();
     }
   }
 
