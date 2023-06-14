@@ -1,30 +1,30 @@
 import { Worker } from 'node:worker_threads';
-import {LinksDatabase} from '../services/links-db.js';
+import { LinksDatabase as LinksDB } from '../services/links-db.js';
 
 let MAX_LEVEL = 3;
-let COUNT_LINKS = 0;
+const db = new LinksDB();
 
-
-export const run = async (url) => {
-    let level = 0;
-
-    /* Q5 criar uma nova thread para link encontrado */
+export const run = async (url, level = 0) => {
+    db.addVisitedUrl(url);
     const thread = new Worker('./src/services/task.js');
-        
+    
     thread.once("message", (links) => {
+
+
+        /* Q7: Limitar a quantidade de níveis que o seu crawler */
         if (level < MAX_LEVEL) {
             for (let link of links) {
-                COUNT_LINKS++;
 
-                if (COUNT_LINKS < 5) {
-                    run(link);
+
+                /* Q6: Usar uma estrutura de dados (set) para evitar visitar uma mesma URL mais de uma vez */
+                if (!db.hasVisitedUrl(link)) {
+
+                    /* Q5: criar uma nova thread para link encontrado */
+                    run(link, level + 1);
                 }
             }
-            level++;
-        } else  {
-            COUNT_LINKS = 0;
         }
-        console.log(`Finalizado thread de ID ${thread.threadId} no nível ${level}`);
+        level++;
     });
 
     thread.on("error", err => {
@@ -32,6 +32,6 @@ export const run = async (url) => {
         console.error(err);
     });
 
-    console.log(`\nCriado thread de ID ${thread.threadId}`);
-    thread.postMessage({url: url, threadId: thread.threadId});
+    console.log(`Criado thread de ID ${thread.threadId} no nível ${level} para: ${url}`);
+    thread.postMessage({url: url});
 }

@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import {JSDOM as jsdom} from 'jsdom'
 
 export class HTMLReader {
-    /* Q1: método/função que lê o conteúdo HTML de uma URL */
+    /* Q1: método/função que lê o conteúdo HTML de uma URL utilizando arquivos */
     static async readFromFile(path) {
         try {
             
@@ -13,6 +13,7 @@ export class HTMLReader {
         }
     }
 
+    /* Q1: método/função que lê o conteúdo HTML de uma URL */
     static async readFromURL(url) {
         try {
             const loadedPage = await jsdom.fromURL(url, {
