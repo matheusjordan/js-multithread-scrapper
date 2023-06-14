@@ -1,5 +1,6 @@
 import fs from 'fs';
 
+/* Q10: Permitir fazer buscas nas páginas descobertas */
 const searchTerm = process.argv[2];
 if (!searchTerm) {
   console.error('Please set an search term like "anysitename" as argument of this comand.');

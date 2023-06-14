@@ -12,6 +12,7 @@ const singleMain = async () => {
 
 import { WorkerPool } from './services/worker-pool.js';
 const poolMain = async () => {
+    /* Q9: Usar thread pools para limitar a quantidade máxima de threads em funcionamento simultaneamente */
     const pool = new WorkerPool(8);
     pool.run(url);
 }
