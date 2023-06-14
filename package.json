@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "npx nodemon --ignore ./database/*.json --exec node --experimental-json-modules src/index.js",
-    "start": "node --experimental-json-modules src/index.js"
+    "craw": "node --experimental-json-modules src/index.js",
+    "find": "node --experimental-json-modules src/find.js"
   },
   "keywords": [],
   "author": "",
