@@ -1,9 +1,15 @@
 import {run} from "./utils/thread-manager.js";
-import {RunSearch} from './services/run-search.js'
-import {LinksDatabase} from './services/links-db.js';
 
-const main = async () => {
+
+const singleMain = async () => {
     run('https://pt.wikipedia.org/wiki/Campina_Grande');
 }
 
-main();
+import { WorkerPool } from './services/worker-pool.js';
+const poolMain = async () => {
+    const pool = new WorkerPool(8);
+    pool.run('https://pt.wikipedia.org/wiki/Campina_Grande')
+}
+
+// singleMain();
+poolMain();
